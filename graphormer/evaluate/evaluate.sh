@@ -1,0 +1,18 @@
+python evaluate.py \
+    --user-dir ../../graphormer \
+    --num-workers 32 \
+    --ddp-backend=legacy_ddp \
+	--user-data-dir testing_dataset \
+	--dataset-name IR_test \
+    --task graph_prediction \
+	--criterion sid \
+	--arch graphormer_base \
+    --encoder-layers 4 \
+    --encoder-embed-dim  2100 \
+    --encoder-ffn-embed-dim 2100 \
+    --encoder-attention-heads 210 \
+    --mlp-layers 3 \
+    --batch-size 64 \
+    --num-classes 1801 \
+    --save-dir '/home/cmkstien/Graphormer_IR_pub/model' \
+    --split train \

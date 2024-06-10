@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>What
+is my public IP address - IP.ME</title>
+        <meta
+            name="description"
+            content="Use our
+free IP address tool to find your public IP address (IPv4 - IPv6) in one
+click."
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/static/vendor/bootstrap.min.css"
+        />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/static/vendor/fa.css"
+        />
+
+        <link
+            rel="apple-touch-icon"
+            sizes="57x57"
+            href="/static/apple-icon-57x57.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="60x60"
+            href="/static/apple-icon-60x60.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="72x72"
+            href="/static/apple-icon-72x72.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="76x76"
+            href="/static/apple-icon-76x76.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="114x114"
+            href="/static/apple-icon-114x114.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="120x120"
+            href="/static/apple-icon-120x120.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="144x144"
+            href="/static/apple-icon-144x144.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="152x152"
+            href="/static/apple-icon-152x152.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/static/apple-icon-180x180.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="192x192"
+            href="/static/android-icon-192x192.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/static/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="96x96"
+            href="/static/favicon-96x96.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/static/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/static/manifest.json" />
+        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta
+            name="msapplication-TileImage"
+            content="/static/ms-icon-144x144.png"
+        />
+        <meta name="theme-color" content="#ffffff" />
+        <link
+            rel="shortcut icon"
+            href="/static/favicon.ico"
+            type="image/x-icon"
+        />
+        <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+
+        <link rel="stylesheet" type="text/css" href="/static/main.css" />
+
+        <script
+            src="https://code.jquery.com/jquery-3.4.0.slim.min.js"
+            integrity="sha256-ZaXnYkHGqIhqTbJ6MB4l9Frs/r7U4jlx7ir8PJYBqbI="
+            crossorigin="anonymous"
+        ></script>
+        <script
+            type="text/javascript"
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        ></script>
+    </head>
+    <body class="home text-white">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <span class="text-white">ip</span>.<span class="text-white"
+                        >me</span
+                    >
+                </a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div
+                    class="collapse navbar-collapse"
+                    id="navbarSupportedContent"
+                >
+                    <ul class="navbar-nav ml-auto">
+                        <!--
+					<li class="nav-item ">
+						<a class="nav-link" href="/check-webrtc-leaks">WebRTC</a>
+					</li>
+					-->
+                        <li
+                            class="nav-item "
+                        >
+                            <a class="nav-link" href="/ip">IP Lookup</a>
+                        </li>
+                        <li
+                            class="nav-item "
+                        >
+                            <a class="nav-link" href="/whois">Whois</a>
+                        </li>
+                        <li class="nav-item">
+                            <span
+                                class="title "
+                                >DNS</span
+                            >
+                            <ul class="submenu">
+                                <li
+                                    class="nav-item "
+                                >
+                                    <a class="nav-link" href="/dns"
+                                        >DNS Lookup</a
+                                    >
+                                </li>
+                                <li
+                                    class="nav-item "
+                                >
+                                    <a class="nav-link" href="/mx">MX Lookup</a>
+                                </li>
+                                <li
+                                    class="nav-item "
+                                >
+                                    <a class="nav-link" href="/ns">NS Lookup</a>
+                                </li>
+                                <li
+                                    class="nav-item "
+                                >
+                                    <a class="nav-link" href="/cname"
+                                        >CNAME Lookup</a
+                                    >
+                                </li>
+                                <li
+                                    class="nav-item "
+                                >
+                                    <a class="nav-link" href="/txt"
+                                        >TXT Lookup</a
+                                    >
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- <li class="nav-item">
+						<span class="title ">Tools</span>
+						<ul class="submenu">
+							<li class="nav-item ">
+								<a class="nav-link" href="/ip">IP Lookup</a>
+							</li>
+							<li class="nav-item ">
+								<a class="nav-link" href="/whois">Whois</a>
+							</li>
+							<li class="nav-item ">
+								<a class="nav-link" href="/dns">DNS</a>
+							</li>
+						</ul>
+					</li> -->
+                        <!--
+					<li class="nav-item ">
+						<a class="nav-link" href="/resources">Resources</a>
+					</li>
+					-->
+                        <li
+                            class="nav-item "
+                        >
+                            <a class="nav-link" href="/about">About</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+         
+
+        <main class="py-4">
+            <div class="container">
+                
+                  
+
+<style>
+    .ip-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .ip-container input[type="text"] {
+        max-width: 215px;
+    }
+
+    @media (max-width: 992px) {
+        .ip-container {
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            height: 140px;
+        }
+
+        .ip-container input[type="submit"] {
+            width: auto !important;
+        }
+    }
+</style>
+
+<h1 class="mt-5">What is your IP address?</h1>
+<form method="POST" action="/ip">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="ip-lookup">Your public IP address is:</label>
+            <input type="text" name="ip" value="129.97.47.204" class="form-control" id="ip-lookup" placeholder="0.0.0.0" autofocus>
+        </div>
+        <div class="form-group col">
+            <label class="d-none d-md-block">&nbsp;</label>
+            <input type="submit" value="IP Lookup" class="btn btn-primary">
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(function () {
+        $('form').submit(function (event) {
+            var ip = $('#ip-lookup').val();
+            if (ip !== '' && ip !== undefined) {
+                window.location.replace("/ip/" + ip);
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+
+<div class="row pb-5">
+    <div class="col-md-6 map_container">
+        <div id="map"></div>
+    </div>
+    <div class="col-md-6">
+        <table class="table bg-transparent text-white table-sm my-3">
+            <tr>
+                <th>City:</th>
+                <td><code>Waterloo</code></td>
+            </tr>
+            <tr>
+                <th>Country:</th>
+                <td><code>Canada</code></td>
+            </tr>
+            <tr>
+                <th>County Code:</th>
+                <td><code>CA</code></td>
+            </tr>
+            <tr>
+                <th>Latitude:</th>
+                <td class="latitude">
+                    <code>43.474</code>
+                </td>
+            </tr>
+            <tr>
+                <th>Longitude:</th>
+                <td class="longitude">
+                    <code>-80.554</code>
+                </td>
+            </tr>
+            <tr>
+                <th>Postal Code:</th>
+                <td><code>N2L</code></td>
+            </tr>
+            <tr>
+                <th>Organization:</th>
+                <td><code>University of Waterloo</code></td>
+            </tr>
+            <tr>
+                <th>ASN:</th>
+                <td><code>12093</code></td>
+            </tr>
+            <tr>
+                <th>ISP Name:</th>
+                <td><code>University of Waterloo</code></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="row pt-5">
+    <div class="col-md-6">
+        <h4 class="pb-4">What does your IP address reveal?</h4>
+        <p class="rounded px-4 py-4 text-dark bg-white">
+            An Internet Protocol address (IP address) is a numerical label
+            assigned to each device connected to a computer network that uses
+            the Internet Protocol for communication. An IP address serves two
+            main functions: host or network interface identification and
+            location addressing.
+        </p>
+        <p>
+            <a href="https://protonvpn.com" target="_blank">Hide your IP address and network traffic with a VPN.</a>
+        </p>
+    </div>
+</div>
+
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+crossorigin=""></script>
+
+<script defer>
+	// initialize Leaflet
+	var map = L.map('map').setView({lon: -80.554, lat: 43.474 }, 6);
+	map.attributionControl.setPrefix(false);
+
+	// add the OpenStreetMap tiles
+	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 12,
+		attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+	}).addTo(map);
+
+	// show the scale bar on the lower left corner
+	L.control.scale({imperial: true, metric: true}).addTo(map);
+
+	// show a marker on the map
+	L.marker({lon: -80.554, lat: 43.474}).addTo(map);
+
+	console.log(L);
+</script>
+
+
+
+            </div>
+        </main>
+
+        <footer class="pt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col menu">
+                        <a
+                            class="active"
+                            href="/"
+                            >Home</a
+                        >
+                        |
+                        <a
+                            class=""
+                            href="/ip"
+                            >IP Lookup</a
+                        >
+                        |
+                        <a
+                            class=""
+                            href="/whois"
+                            >Whois</a
+                        >
+                        |
+                        <a
+                            class=""
+                            href="/dns"
+                            >DNS</a
+                        >
+                        |
+                        <a
+                            class=""
+                            href="/about"
+                            >About</a
+                        >
+                    </div>
+                    <div class="col text-right">
+                        Made with <i class="fa fa-heart text-danger"></i> by
+                        <a
+                            href="https://proton.me"
+                            target="_blank"
+                            class="text-white"
+                            >Proton</a
+                        >
+                        &copy; 2020 ip.me
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script type="text/javascript" defer>
+            $(function () {
+                $("form").on("submit", function () {
+                    $(this)
+                        .find('button, input[type="submit"]')
+                        .attr("disabled", true);
+                });
+            });
+        </script>
+    </body>
+</html>
