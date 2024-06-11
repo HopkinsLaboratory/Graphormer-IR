@@ -29,7 +29,6 @@ for i in range(num_groups):
 class IRSpectraD(DGLDataset):
     def __init__(self):
         self.mode = ":("
-        self.save_path_2 = '/home/weeb/shit/Graphormer/examples/property_prediction/training_dataset/'
         ## atom encodings
         atom_type_onehot = [
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -172,7 +171,7 @@ class IRSpectraD(DGLDataset):
             count +=1
 
         self.num_classes = 1801
-        super().__init__(name='IR Spectra', save_dir='/home/weeb/shit/Graphormer/examples/property_prediction/training_dataset/') 
+        super().__init__(name='IR Spectra', save_dir='/home/Graphormer/examples/property_prediction/training_dataset/') 
 
     def process(self):
         
@@ -181,7 +180,7 @@ class IRSpectraD(DGLDataset):
         self.smiles = []
 
         print("I'm in the right file")
-        x = import_data(r'/home/cmkstien/Desktop/IR_data/2023_02_04_interpolated_data_lam_3e5_lam1_10e-4_p_0p04.csv')
+        x = import_data(r'/home/cmkstien/Desktop/IR_data/sample_IR_train_data.csv')
         x = x[1:] ## removing header
         
         with open('/home/cmkstien/Desktop/IR_data/combinatoric_atoms.pickle', 'rb') as handle: ## used for global node hash encodings
