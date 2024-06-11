@@ -24,8 +24,8 @@ url={https://openreview.net/forum?id=OeWooOxFwDa}
 
 # Installation
 We highly recommend following the installation guide from https://graphormer.readthedocs.io/, though we will suggest a few additional notes to make things easier
-- Install fairseq directly from the Github repository (https://github.com/facebookresearch/fairseq), "pip install -e /path/to/folder" Make sure that you're using an old enough version that's compatible with
-- Make sure that you're using an old enough version of PyTorch Geometric and the DGL libraries (there's a lookup table for compatibility on their website). These are the things that we found broke the most frequently, and the errors you get don't always tell you that it's these packages. If there are problems inheriting abstract data classes, just modify the class methods to include whatever "__len__" (or other nmethod that it asks for), in your install and it should work.
+- Install fairseq directly from the Github repository (https://github.com/facebookresearch/fairseq), "pip install -e /path/to/folder" Make sure that you're using an old enough version that's compatible with Graphormer
+- Make sure that you're using an old enough version of PyTorch Geometric and the DGL libraries (there's a lookup table for compatibility on their website). These are the things that we found broke the most frequently, and the errors you get don't always tell you that it's these packages. If there are problems inheriting abstract data classes, just modify the class methods to include whatever "\_\_len\_\_" (or other nmethod that it asks for), in your install and it should work.
 - Make sure your version numbers match what's listed in the "Requirements_Graphormer.txt" file that is in this repository
 
 # Data
