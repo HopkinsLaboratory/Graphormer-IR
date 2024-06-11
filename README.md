@@ -1,4 +1,4 @@
-##General
+###General
 Graphormer-IR is an extension to the Graphormer package, where documentation is available at https://graphormer.readthedocs.io/, and the original code can be found at https://github.com/microsoft/Graphormer/. If you use this code, you should cite our paper and the original graphormer work:
 
 @article{Stienstra2024,
@@ -22,19 +22,19 @@ year={2021},
 url={https://openreview.net/forum?id=OeWooOxFwDa}
 }
 
-##Installation
+###Installation
 We highly recommend following the installation guide from https://graphormer.readthedocs.io/, though we will suggest a few additional notes to make things easier
 - Install fairseq directly from the Github repository (https://github.com/facebookresearch/fairseq), "pip install -e /path/to/folder" Make sure that you're using an old enough version that's compatible with
 - Make sure that you're using an old enough version of PyTorch Geometric and the DGL libraries (there's a lookup table for compatability on their website). These are the things that we found broke the most frequently, and the errors you get don't always tell you that it's these packages. If there are problems inheriting abstract data classes, just modify the class methods to include whatever "__len__" (or other nmethod that it asks for), in your install and it should work.
 - Make sure your version numbers match what's listed in the "Requirements_Graphormer.txt" file that is in this repository
 
-##Data
+###Data
 Unfortunately, due to the local copyrights of the  ...
 
 MOCK DATA
 
   
-##Usage
+###Usage
 This repository contains the code you need to reproduce the work in our recent publication (https://doi.org/10.1021/acs.jcim.4c00378). Most of our usage is identical to that found in the original Graphormer paper. But to briefly summarize the novelties and changes in this work
 
 - Training models can be accomplished using the "examples/property_prediction/IR_spec.sh" script. Here you can tune most model parameters.
