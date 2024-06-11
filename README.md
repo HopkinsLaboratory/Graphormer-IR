@@ -1,6 +1,5 @@
 # General
-
-Graphormer-IR is an extension to the Graphormer package, where documentation is available at https://graphormer.readthedocs.io/, and the original code can be found at https://github.com/microsoft/Graphormer/. If you use this code, you should cite our paper and the original graphormer work:
+Graphormer-IR is an extension to the Graphormer package, where documentation is available at https://graphormer.readthedocs.io/, and the original code can be found at https://github.com/microsoft/Graphormer/. If you use this code, you should cite our paper and the original Graphormer work:
 
 @article{Stienstra2024,
    author = {Cailum M. K. Stienstra and Liam Hebert and Patrick Thomas and Alexander Haack and Jason Guo and W. Scott Hopkins},
@@ -26,7 +25,7 @@ url={https://openreview.net/forum?id=OeWooOxFwDa}
 # Installation
 We highly recommend following the installation guide from https://graphormer.readthedocs.io/, though we will suggest a few additional notes to make things easier
 - Install fairseq directly from the Github repository (https://github.com/facebookresearch/fairseq), "pip install -e /path/to/folder" Make sure that you're using an old enough version that's compatible with
-- Make sure that you're using an old enough version of PyTorch Geometric and the DGL libraries (there's a lookup table for compatability on their website). These are the things that we found broke the most frequently, and the errors you get don't always tell you that it's these packages. If there are problems inheriting abstract data classes, just modify the class methods to include whatever "__len__" (or other nmethod that it asks for), in your install and it should work.
+- Make sure that you're using an old enough version of PyTorch Geometric and the DGL libraries (there's a lookup table for compatibility on their website). These are the things that we found broke the most frequently, and the errors you get don't always tell you that it's these packages. If there are problems inheriting abstract data classes, just modify the class methods to include whatever "__len__" (or other nmethod that it asks for), in your install and it should work.
 - Make sure your version numbers match what's listed in the "Requirements_Graphormer.txt" file that is in this repository
 
 # Data
@@ -38,12 +37,13 @@ MOCK DATA
 # Usage
 This repository contains the code you need to reproduce the work in our recent publication (https://doi.org/10.1021/acs.jcim.4c00378). Most of our usage is identical to that found in the original Graphormer paper. But to briefly summarize the novelties and changes in this work
 
-- Training models can be accomplished using the "examples/property_prediction/IR_spec.sh" script. Here you can tune most model parameters.
-- Training data is loaded from  "examples/property_prediction/training_dataset/IrSpectraDataset_train.py". Here you can modify node features, edge features, where we perform combinatoric edge   mapping, and we manually add on the global graph node to describe solvent phase. We use modified versions of the DGLLifeScience featurization functions (found in featurizing_helpers.py)
-- Our learned graph node feature encoder is found in "graphormer/modules/graphormer_layers.py". If you change the number/shape of input node features you will have to edit this code as well
-- The model itself is in "graphormer/models/graphormer.py". Most hyperparameters can be tuned from the bash script"
-- Once you have a trained model, evaluation occurs at "graphormer/evaluate/evaluate.sh". Make sure your model hyperparameteres match those from the model that you trained on. 
-- Evaluation functions are found at "graphormer/evaluate/evaluate.py" - you can extract your predicted spectra, SMILES codes, and SIS scores from this script if you want to export the data
+- Training models can be accomplished using the /examples/property_prediction/IR_spec.sh script. Here you can tune most model parameters.
+- Training data is loaded from  /examples/property_prediction/training_dataset/IrSpectraDataset_train.py. Here you can modify node features, edge features, where we perform combinatoric edge mapping, and we manually add on the global graph node to describe solvent phase. We use modified versions of the DGLLifeScience featurization functions (found in featurizing_helpers.py)
+- Our learned graph node feature encoder is found in /graphormer/modules/graphormer_layers.py. If you change the number/shape of input node features you will have to edit this code as well
+- The model itself is in /graphormer/models/graphormer.py. Most hyperparameters can be tuned from the bash script"
+- Once you have a trained model, evaluation occurs at /graphormer/evaluate/evaluate.sh. Make sure your model hyperparameteres match those from the model that you trained on. 
+- Evaluation functions are found at /graphormer/evaluate/evaluate.py - you can extract your predicted spectra, SMILES codes, and SIS scores from this script if you want to export the data
+- The scripts that we used for spectral preprocessing are available in /scripts/, performing molecular filtering, phase consolidation, baseline aliasing, interpolation, phase exclusion, etc. 
 
 
 
