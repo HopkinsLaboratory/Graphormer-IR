@@ -6,7 +6,6 @@ from rdkit import Chem
 import torch
 
 from .featurizing_helpers import *
-print("YOURE DEF IN THE RCORRECT FILE")
 
 import itertools
 
@@ -29,7 +28,6 @@ for i in range(num_groups):
 class IRSpectraD(DGLDataset):
     def __init__(self):
         self.mode = ":("
-        self.save_path_2 = '/home/weeb/shit/Graphormer/examples/property_prediction/training_dataset/'
         ## atom encodings
         atom_type_onehot = [
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -172,7 +170,7 @@ class IRSpectraD(DGLDataset):
             count +=1
 
         self.num_classes = 1801
-        super().__init__(name='IR Spectra', save_dir='/home/weeb/shit/Graphormer/examples/property_prediction/training_dataset/') 
+        super().__init__(name='IR Spectra', save_dir='/home/cmkstien/Graphormer/examples/property_prediction/training_dataset/') 
 
     def process(self):
         
@@ -181,7 +179,7 @@ class IRSpectraD(DGLDataset):
         self.smiles = []
 
         print("I'm in the right file")
-        x = import_data(r'/home/cmkstien/Desktop/IR_data/split_1/graphormer/testing_dataset.csv')
+        x = import_data(r'/home/cmkstien/Desktop/IR_data/sample_IR_train_data.csv')
         x = x[1:] ## removing header
         
         with open('/home/cmkstien/Desktop/IR_data/combinatoric_atoms.pickle', 'rb') as handle: ## used for global node hash encodings
@@ -246,7 +244,6 @@ class IRSpectraD(DGLDataset):
                     g.add_nodes(1)
                 elif phase == "liquid film":
                     g_nm = [102] + list(np.zeros(flength-1))
-
                     unifatom.append(g_nm)
                     g.add_nodes(1)
                 elif phase == "KBr" or phase == "KCl":
