@@ -54,5 +54,10 @@ The five best performing Graphormer-IR models (full set of node features, learne
 
 # Contact
 
-If you require further assistance with developing your own model or have any questions about its implementaton, the authors can be contacted at {cmkstien,liam.hebert,p7thomas,scott.hopkins}@uwaterloo.ca. 
+If you require further assistance with developing your own model or have any questions about its implementaton, the authors can be contacted at 
+
+- cmkstien@uwaterloo.ca
+- liam.hebert@uwaterloo.ca
+- p7thomas@uwaterloo.ca
+- scott.hopkins@uwaterloo.ca. 
 
