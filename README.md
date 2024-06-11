@@ -52,7 +52,7 @@ This repository contains the code you need to reproduce the work in our recent p
 
 The five best performing Graphormer-IR models (full set of node features, learned node features, combinatoric edges, etc.), discussed in detail in the manuscript are freely available online at [Zenodo](https://zenodo.org/records/10790190). These can be used for model evaluation using the evaluate.sh script and accompanying dataloader. 
 
+# Contact
 
-
-
+If you require further assistance with developing your own model or have any questions about its implementaton, the authors can be contacted at {cmkstein,liam.hebert,p7thomas,scott.hopkins}@uwaterloo.ca. 
 
