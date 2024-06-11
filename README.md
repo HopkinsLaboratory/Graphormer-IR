@@ -32,11 +32,10 @@ We highly recommend following the installation guide from https://graphormer.rea
 - Refer to "Requirements_Graphormer.txt" if you have any problems with version numbers
 
 # Data
-Due to the local copyrights of the  ...
+Large collections of infrared spectra are owned byprivate organizations across a variety of domains, and nounified “machine learning ready” data set is available. As such, it was necessary to obtain, clean, and process a library of IRspectra from several different domains. IR spectra were obtained from three online sources: the National Institute of Advanced Industrial Science and Technology (AIST), the National Institute of Standards and Technology (NIST), and the Coblentz Society. Complete data access statements can be found in our original publication in the Supporting Information for the Graphormer-IR manuscript.
 
-MOCK DATA
+Since we are unable to provide this data, we instead provide sample data in /scripts/sample_data/ and indices that interface with our code and to provide an approximate template for evaluation. 
 
-  
 # Usage
 This repository contains the code you need to reproduce the work in our recent publication (https://doi.org/10.1021/acs.jcim.4c00378). Most of our usage is identical to that found in the original Graphormer paper. But to briefly summarize the novelties and changes in this work
 
@@ -48,6 +47,9 @@ This repository contains the code you need to reproduce the work in our recent p
 - Evaluation functions are found at /graphormer/evaluate/evaluate.py - you can extract your predicted spectra, SMILES codes, and SIS scores from this script if you want to export the data
 - The scripts that we used for spectral preprocessing are available in /scripts/, performing molecular filtering, phase consolidation, baseline aliasing, interpolation, phase exclusion, etc. 
 
+# Models
+
+The five best performing Graphormer-IR models (full set of node features, learned node features, combinatoric edges, etc.), discussed in detail in the manuscript are freely available online at https://zenodo.org/records/10790190 . These can be used for model evaluation
 
 
 
