@@ -29,10 +29,10 @@ url={https://openreview.net/forum?id=OeWooOxFwDa}
 We highly recommend following the installation guide from https://graphormer.readthedocs.io/, though we will suggest a few additional notes to make things easier
 - Install fairseq directly from the Github repository (https://github.com/facebookresearch/fairseq), "pip install -e /path/to/folder" Make sure that you're using an old enough version that's compatible with Graphormer
 - Make sure that you're using an old enough version of PyTorch Geometric and the DGL libraries (there's a lookup table for compatibility on their website). These are the things that we found broke the most frequently, and the errors you get don't always tell you that it's these packages. If there are problems inheriting abstract data classes, just modify the class methods to include whatever class methods (e.g., "\_\_len\_\_"), in your install and it should work.
-- Refer to "Requirements_Graphormer.txt" if you have any problems with version numbers
+- Refer to "Requirements_Graphormer.txt" if you have any problems with version compatability.
 
 # Data
-Large collections of infrared spectra are owned byprivate organizations across a variety of domains, and nounified “machine learning ready” data set is available. As such, it was necessary to obtain, clean, and process a library of IRspectra from several different domains. IR spectra were obtained from three online sources: the National Institute of Advanced Industrial Science and Technology (AIST), the National Institute of Standards and Technology (NIST), and the Coblentz Society. Complete data access statements can be found in our original publication in the Supporting Information for the Graphormer-IR manuscript.
+Large collections of infrared spectra are owned by private organizations across a variety of domains, and no unified “machine learning ready” data set is available. As such, it was necessary to obtain, clean, and process a library of IR spectra from several different domains. IR spectra were obtained from three online sources: the National Institute of [Advanced Industrial Science and Technology (AIST)](https://sdbs.db.aist.go.jp/), the National Institute of Standards and Technology (NIST), and the Coblentz Society. Complete data access statements can be found in our original publication in the Supporting Information for the Graphormer-IR manuscript.
 
 Since we are unable to provide this data, we instead provide sample data in /scripts/sample_data/ and indices that interface with our code and to provide an approximate template for evaluation. 
 
@@ -49,7 +49,7 @@ This repository contains the code you need to reproduce the work in our recent p
 
 # Models
 
-The five best performing Graphormer-IR models (full set of node features, learned node features, combinatoric edges, etc.), discussed in detail in the manuscript are freely available online at https://zenodo.org/records/10790190 . These can be used for model evaluation
+The five best performing Graphormer-IR models (full set of node features, learned node features, combinatoric edges, etc.), discussed in detail in the manuscript are freely available online at https://zenodo.org/records/10790190 . These can be used for model evaluation using the evaluate.sh script and accompanying dataloader. 
 
 
 
