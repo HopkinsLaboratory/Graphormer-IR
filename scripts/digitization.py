@@ -52,7 +52,7 @@ def pre_process(image):
     
     ## process image
     gray = cv2.cvtColor(cropped_image, cv2.COLOR_BGR2GRAY) 
-    blur = cv2.GaussianBlur(gray, (7,7), 0) # cv2.GaussianBlur(gray, (7,7), 0)
+    blur = cv2.GaussianBlur(gray, (7,7), 0)
     thresh = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
     kernal = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 13))
     dilate = cv2.dilate(thresh, kernal, iterations=1)
@@ -126,7 +126,7 @@ def find_graph_box(im):
         if (im[mid_y-20:mid_y+20,column] == 1).all():
             y_line_columns.append(column)
             break
-    # print((x_line_rows[0],x_line_rows[-1]), (y_line_columns[0],y_line_columns[-1]))
+            
     return ((x_line_rows[0],x_line_rows[-1]), (y_line_columns[0],y_line_columns[-1]))
 
 
@@ -195,7 +195,7 @@ def parse_graph(graph_im, is_trans):
             if graph_im[x, y] == 1:
                 label_y = (dim_y - float(y)) / dim_y * MAX_Y
                 ys.append(label_y)
-        if not(ys == []): # this is potentially slow, getting around tuples being immutable
+        if not(ys == []): 
             temp = data.pop(-1)
             temp = list(temp)
             temp[1] = np.average(ys)
@@ -230,7 +230,7 @@ def write_one_spectrum(file,input_directory,output_directory,error_directory):
         if save_ROI:
             fout = file[:-4]
 
-            fout = os.path.join(roidir, fout) # THIS SEEMS JANK
+            fout = os.path.join(roidir, fout)
             cv2.imwrite(fout + file[:-4] + '_roi.png', roi)
 
         np_im = convert_to_numpy(roi)
@@ -242,13 +242,6 @@ def write_one_spectrum(file,input_directory,output_directory,error_directory):
         remove_ticks(graph_im)
 
         data = parse_graph(graph_im, transmission_out)
-
-        # IMPLEMENT SAVING GRAPHS 
-        # if show_graphs:
-        #     print('show_graphs')
-
-        # if save_graphs:
-        #     print('save_graphs')
 
         fout1 = file[:-4] + ".csv"
         fout1 = os.path.join(output_directory, fout1)
