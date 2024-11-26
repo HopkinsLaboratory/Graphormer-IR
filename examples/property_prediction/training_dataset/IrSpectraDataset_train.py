@@ -283,8 +283,8 @@ class IRSpectraD(DGLDataset):
             self.smiles.append(sm)
             count+=1
         
-            if count == 20:
-                break
+            # if count == 20:
+            #     break
 
     def __getitem__(self, i):
         # print(i)
