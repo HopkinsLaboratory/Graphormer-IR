@@ -180,7 +180,7 @@ class IRSpectraD(DGLDataset):
         self.smiles = []
 
         print("I'm in the right file")
-        x = import_data(r'./sample_IR_train_data.csv')
+        x = import_data(r'./IR_sample_data.csv')
         x = x[1:] ## removing header
         
         print("Loading Data and Converting SMILES to DGL graphs")
