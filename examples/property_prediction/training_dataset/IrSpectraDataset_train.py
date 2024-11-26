@@ -171,7 +171,7 @@ class IRSpectraD(DGLDataset):
             count +=1
 
         self.num_classes = 1801
-        super().__init__(name='IR Spectra', save_dir='/home/Graphormer/examples/property_prediction/training_dataset/') 
+        super().__init__(name='IR Spectra', save_dir='') 
 
     def process(self):
         
@@ -180,11 +180,8 @@ class IRSpectraD(DGLDataset):
         self.smiles = []
 
         print("I'm in the right file")
-        x = import_data(r'/home/cmkstien/Desktop/IR_data/sample_IR_train_data.csv')
+        x = import_data(r'./sample_IR_train_data.csv')
         x = x[1:] ## removing header
-        
-        with open('/home/cmkstien/Desktop/IR_data/combinatoric_atoms.pickle', 'rb') as handle: ## used for global node hash encodings
-            self.atomhashdict = pickle.load(handle)     
         
         print("Loading Data and Converting SMILES to DGL graphs")
         count_outliers = 0
