@@ -100,7 +100,7 @@ def spectral_information_similarity(spectrum1,spectrum2,conv_matrix,smiles,frequ
     sim=1/(1+np.sum(distance)) ## Calculating SIS
 
     if save:
-        simL = np.concatenate((norm1, norm2, [smiles[0], sim]), axis =None) ## If you want detailed data vs just the similarity score
+        simL = np.concatenate((norm1, norm2, [smiles, sim]), axis =None) ## If you want detailed data vs just the similarity score
         return simL
     else:
         return sim
@@ -199,6 +199,8 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
             dset_size = 1801 ## size of wavenumber vector (400, 4000)
             sim_L = []
             eval_only = False ## If there is no target specra
+            save = True
+
             total = len(y_pred)//dset_size
             conv_matrix = make_conv_matrix(std_dev=15) ## in wavenumber, used for smoothing gaussian convolution
 
@@ -216,8 +218,11 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                 if eval_only:
                     conv1=np.matmul(y_val_pred,conv_matrix)
                     sum1=np.nansum(conv1)
-                    norm1=conv1/sum1
-                    stack.append([norm1, smiles]) ## if there is no target spectra (testing predictions)
+                    norm1=conv1/sum1 ## prediction 
+                    norm2 = list(np.zeros_like(norm1)) # padded true value
+                    norm2.extend(norm1)
+                    norm2.extend([smiles, 'eval'])
+                    stack.append(norm2) ## if there is no target spectra (testing predictions)
                     continue
 
                 else:
@@ -229,12 +234,21 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                     sim_L.append(float(sim[-1]))
                     stack.append(sim)
 
-            #Dump sim_L into pickle if you want detailed results (including SMILES )
-            sim_solo = np.asarray(sim_solo)
+            if save:
+                wv = np.arange(400, 4000, 2)
+                wv_true = [str(i) + '_true' for i in wv]
+                wv_pred = [str(i) + '_pred' for i in wv]
+                header = wv_true + wv_pred + ['smiles', 'sim']
+                with open('./eval_results.csv', 'w', newline='\n') as csvfile:
+                    csvwriter = csv.writer(csvfile, delimiter=',')
+                    csvwriter.writerow(header)
+                    for row in stack:
+                        csvwriter.writerow(row)
+
             m = np.round(np.mean(sim_L), 5)
             std = np.round(np.std(sim_L), 5)
             print(m, std)
-            gen_histogram(sim_solo) ## for summary statistics
+            gen_histogram(sim_L) ## for summary statistics
             logger.info(f"sim average: {m}")
 
 def main():
