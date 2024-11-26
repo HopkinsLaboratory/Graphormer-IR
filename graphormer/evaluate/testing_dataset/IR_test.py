@@ -182,9 +182,6 @@ class IRSpectraD(DGLDataset):
         x = import_data(r'/home/cmkstien/Desktop/IR_data/sample_IR_train_data.csv')
         x = x[1:] ## removing header
         
-        with open('/home/cmkstien/Desktop/IR_data/combinatoric_atoms.pickle', 'rb') as handle: ## used for global node hash encodings
-            self.atomhashdict = pickle.load(handle)     
-        
         print("Loading Data and Converting SMILES to DGL graphs")
         count_outliers = 0
 
