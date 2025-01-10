@@ -3,7 +3,7 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
 	--num-workers 24 \
 	--ddp-backend=legacy_ddp \
 	--seed 23 \
-	--user-data-dir training_dataset \
+	--user-data-dir IR_data \
 	--dataset-name customized_IRSpectraDataset \
 	--task graph_prediction \
 	--criterion sid \
@@ -22,4 +22,4 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
     --batch-size 32 \
 	--max-epoch 250 \
 	--no-epoch-checkpoints \
-	--save-dir '/home/cmkstien/Graphormer_IR_pub/checkpoints' \
+	--save-dir ' ../../checkpoints' \
