@@ -728,7 +728,7 @@ class IRSpectraD(DGLDataset):
         self.labels = []
         self.smiles = []
 
-        x = import_data(r'/../graphormer/data/DFT_spectra.csv')
+        x = import_data(r'../../graphormer/data/DFT_spectra.csv')
         count = 0                                                                                                                # Does this use df.load_csv under the hood? If so, should be df.load_csv(path, header=None) 
 
         count = 0
