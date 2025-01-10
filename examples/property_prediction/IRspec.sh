@@ -3,7 +3,7 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
 	--num-workers 24 \
 	--ddp-backend=legacy_ddp \
 	--seed 23 \
-	--user-data-dir IR_data \
+	--user-data-dir training_dataset \
 	--dataset-name customized_IRSpectraDataset \
 	--task graph_prediction \
 	--criterion sid \
