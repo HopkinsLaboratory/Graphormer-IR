@@ -41,14 +41,14 @@ class GraphNodeFeature(nn.Module):
 
         # 1 for graph token
         self.atom_encoder = nn.Embedding(num_atoms+1, hidden_dim, padding_idx=0)
+        # 1: [768]
+        # 2: [768]
 
-        self.num_features = 45 ## need to set this manually right now, will include in command line in future updates
+        sizes = [45, 1050,hidden_dim] # TODO: Tune me! ## - the first digit is the number of features  (45)
 
-        sizes = [self.num_features, hidden_dim // 2,hidden_dim] ## number of layers and size of projections for learned node embeddings
-
-        p = 0.05 ## learned feature encoder dropout rate
-
-        self.float_encoder = nn.ModuleList([nn.Sequential(nn.Linear(x, y),nn.Dropout(p = p)) for x, y in zip(sizes[0:-1], sizes[1:])]) ## Build Graph Feature Encoder
+        p = 0.05
+        self.float_encoder = nn.ModuleList([nn.Sequential(nn.Linear(x, y),nn.Dropout(p = p)) for x, y in zip(sizes[0:-1], sizes[1:])]) # added nn.Sequential call with Linear, ReLU()
+        ## TODO: add relus
 
         self.in_degree_encoder = nn.Embedding(num_in_degree, hidden_dim, padding_idx=0)
         self.out_degree_encoder = nn.Embedding(
@@ -56,28 +56,31 @@ class GraphNodeFeature(nn.Module):
         )
 
         self.graph_token = nn.Embedding(1, hidden_dim)
+
         self.apply(lambda module: init_params(module, n_layers=n_layers))
 
     def forward(self, batched_data):
 
+        
         x, in_degree, out_degree = (
             batched_data["x"], 
             batched_data["in_degree"],
             batched_data["out_degree"],
         )
         n_graph, n_node = x.size()[:2]
-        int_feature = torch.unsqueeze(x[:,:, 0], dim = 2).long() ## used in cases where testing atom number, other embeddings
+        # print(x)
+        int_feature = torch.unsqueeze(x[:,:, 0], dim = 2).long()
 
-        float_feature = x[:,:, :].unsqueeze(2) ## grabbing all node features
+        float_feature = x[:,:, :].unsqueeze(2)
 
-        for y in self.float_encoder: ## applying  learned node embedding encoder
+
+        for y in self.float_encoder:
             float_feature = y(float_feature)
             float_feature = F.relu(float_feature)
 
-        float_feature = float_feature.squeeze(2) ## reducing dimensions
+        float_feature = float_feature.squeeze(2)
 
         node_feature = (
-            # int_feature +
             float_feature 
             + self.in_degree_encoder(in_degree)
             + self.out_degree_encoder(out_degree)
