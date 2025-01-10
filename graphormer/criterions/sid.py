@@ -22,7 +22,7 @@ from fairseq import metrics
 from fairseq.criterions import FairseqCriterion, register_criterion
 
 
-@register_criterion("sid", dataclass=FairseqDataclass)
+@register_criterion("sid1", dataclass=FairseqDataclass)
 class SID(FairseqCriterion):
     """
     Implementation for the binary log loss used in graphormer model training.
@@ -42,14 +42,16 @@ class SID(FairseqCriterion):
         3) logging outputs to display while training
         """
         sample_size = sample["nsamples"]
+
         values = model(**sample["net_input"])
-
-
         values = torch.clip(values, min = 10e-8, max = 500)
+
         label = sample['target'] 
-        label = torch.clip(label, min = 10e-8, max = 500) ## clipping values to avoid negative logarithms
+        label = torch.clip(label, min = 10e-8, max = 500)
+
         values = values.squeeze(1)
         loss = self.sid(values, label)
+
 
         logging_output = {
             "loss": loss,
@@ -57,7 +59,8 @@ class SID(FairseqCriterion):
             "ntokens": 1,
             "nsentences": sample_size,
             "ncorrect": 0,
-        }
+        
+        } ## Arbitary parameters you want to spit out for training
 
         return loss, sample_size, logging_output
 
@@ -75,7 +78,7 @@ class SID(FairseqCriterion):
             )
 
     @staticmethod
-    def logging_outputs_can_be_summed():
+    def logging_outputs_can_be_summed() -> bool:
         """
         Whether the logging outputs returned by `forward` can be summed
         across workers prior to calling `reduce_metrics`. Setting this
@@ -84,35 +87,40 @@ class SID(FairseqCriterion):
         return True
 
 
-    def sid(self, model_spectra: torch.tensor, target_spectra: torch.tensor):
+    def sid(self, model_spectra: torch.tensor, target_spectra: torch.tensor) -> torch.tensor:
         # normalize the model spectra before comparison
-        model_spectra[model_spectra <= 10**-6] = 10**-6 ## normalizing to avoid underflow issues
+
+        model_spectra[model_spectra <= 10**-6] = 10**-6
         target_spectra[target_spectra <= 10**-6] = 10**-6
+
             
         nan_mask=torch.isnan(target_spectra)+torch.isnan(model_spectra)
-        nan_mask=nan_mask.to(device=self.torch_device) ## determining nans in both the target and model spectra
+        nan_mask=nan_mask.to(device=self.torch_device)
 
         zero_sub=torch.zeros_like(target_spectra,device=self.torch_device, dtype=torch.float16)
         sum_model_spectra = torch.sum(model_spectra,axis=1)
 
         sum_model_spectra = torch.unsqueeze(sum_model_spectra,axis=1)
-        model_spectra = torch.div(model_spectra,sum_model_spectra) ## normalizing to sum to one (targets are already normalized this way)
-
+        model_spectra = torch.div(model_spectra,sum_model_spectra)
+        # calculate loss value
         if not isinstance(target_spectra,torch.Tensor):
             target_spectra = torch.tensor(target_spectra)
         target_spectra = target_spectra.to(self.torch_device)
 
 
-        target_spectra[nan_mask] = 0 ## removing nans
+        target_spectra[nan_mask] = 0
         model_spectra[nan_mask] = 0
 
         target_spectra[target_spectra <= 10**-8] = 10**-8
-        model_spectra[model_spectra <= 10**-8] = 10**-8 ## clipping again to avoid underflow issues where very small values go to zero
+        model_spectra[model_spectra <= 10**-8] = 10**-8
 
-        loss = (torch.mul(torch.log(torch.div(model_spectra,target_spectra)),model_spectra) + torch.mul(torch.log(torch.div(target_spectra,model_spectra)),target_spectra)) ## SID equation
 
-        loss[nan_mask]=0 ## eliminating all loss values where there are NaNs
-        loss = torch.nansum(loss,axis=1) ## Tryed both mean and sum, mean works better
-        loss = torch.nansum(loss) * 1000 / loss.shape[0] ## accounts for batched data, arbitrary scaling factor to improve learning (Found to help with early gradients)
+        loss = (torch.mul(torch.log(torch.div(model_spectra,target_spectra)),model_spectra) + torch.mul(torch.log(torch.div(target_spectra,model_spectra)),target_spectra))
+
+        loss[nan_mask]=0
+
+        loss = torch.nansum(loss,axis=1) ## change this to mean
+
+        loss = torch.nansum(loss) * 1000 / loss.shape[0] ## accounts for batched data THIS DOES NOTHING 
 
         return loss
