@@ -1,7 +1,9 @@
 from torch.hub import load_state_dict_from_url
 from torch.hub import load
 import torch.distributed as dist
-from torch import load
+from torch import load, save
+from torch import zeros_like
+import torch
 
 PRETRAINED_MODEL_URLS = {
     "pcqm4mv1_graphormer_base":"https://szheng.blob.core.windows.net/graphormer/modelzoo/pcqm4mv1/checkpoint_best_pcqm4mv1.pt",
@@ -11,22 +13,43 @@ PRETRAINED_MODEL_URLS = {
 }
 
 def load_pretrained_model(pretrained_model_name):
+    pretrained_model = load(pretrained_model_name)
+    # print(pretrained_model['model'].keys())
+    # print(pretrained_model['model']['encoder.graph_encoder.graph_node_feature.float_encoder.0.0.weight'])
+    # empty_layers = zeros_like(pretrained_model['model']['encoder.graph_encoder.graph_node_feature.float_encoder.0.0.weight'])
+    # pretrained_model['model']['encoder.graph_encoder.graph_node_feature.rt_encoder.0.0.weight'] = zeros_like(pretrained_model['model']['encoder.graph_encoder.graph_node_feature.column_float_encoder.0.0.weight'])
+    # pretrained_model['model']['encoder.graph_encoder.graph_node_feature.rt_encoder.0.0.bias'] = zeros_like(pretrained_model['model']['encoder.graph_encoder.graph_node_feature.column_float_encoder.0.0.bias'])
+    # pretrained_model['model']['encoder.graph_encoder.graph_node_feature.rt_encoder.1.0.weight'] = zeros_like(pretrained_model['model']['encoder.graph_encoder.graph_node_feature.column_float_encoder.1.0.weight'])
+    # pretrained_model['model']['encoder.graph_encoder.graph_node_feature.rt_encoder.1.0.bias'] = zeros_like(pretrained_model['model']['encoder.graph_encoder.graph_node_feature.column_float_encoder.1.0.bias'])
+    
 
-    if pretrained_model_name not in PRETRAINED_MODEL_URLS:
-        raise ValueError("Unknown pretrained model name %s", pretrained_model_name)
-    if not dist.is_initialized():
-        return load_state_dict_from_url(PRETRAINED_MODEL_URLS[pretrained_model_name], progress=True)["model"]
-    else:
-        pretrained_model = load_state_dict_from_url(PRETRAINED_MODEL_URLS[pretrained_model_name], progress=True, file_name=f"{pretrained_model_name}_{dist.get_rank()}")["model"]
-        dist.barrier()
-    keys = ["criterion"]#, , "optimizer_history", "task_state", "extra_state", "last_optimizer_state"] ## "model"
-    delete = ["args","cfg"]
-    for i in keys:
-        print(pretrained_model[i])
-        # if i in pretrained_model:
-        #     del pretrained_model[i]
-    for i in delete:
-        if i in pretrained_model:
-            del pretrained_model[i]
+    # torch.nn.init.xavier_uniform_(pretrained_model['model']['encoder.graph_encoder.graph_node_feature.rt_encoder.0.0.weight'])
+    # torch.nn.init.zeros_(pretrained_model['model']['encoder.graph_encoder.graph_node_feature.rt_encoder.0.0.bias'])
+    # torch.nn.init.xavier_uniform_(pretrained_model['model']['encoder.graph_encoder.graph_node_feature.rt_encoder.1.0.weight'])
+    # torch.nn.init.zeros_(pretrained_model['model']['encoder.graph_encoder.graph_node_feature.rt_encoder.1.0.bias'])
+
+    # print(pretrained_model['model']['encoder.graph_encoder.graph_node_feature.rt_encoder.1.0.weight'])
+    # print(pretrained_model_name)
+    # new = '/home/cmkstien/Graphormer_Translate/data/pretrain_libs/models/pretrain_excludem_new.pt'
+    # save(pretrained_model, new)
+    # exit()
+    # exit()
+    # if pretrained_model_name not in PRETRAINED_MODEL_URLS:
+    #     raise ValueError("Unknown pretrained model name %s", pretrained_model_name)
+    # if not dist.is_initialized():
+    #     return load_state_dict_from_url(PRETRAINED_MODEL_URLS[pretrained_model_name], progress=True)["model"]
+    # else:
+    #     pretrained_model = load_state_dict_from_url(PRETRAINED_MODEL_URLS[pretrained_model_name], progress=True, file_name=f"{pretrained_model_name}_{dist.get_rank()}")["model"]
+    #     dist.barrier()
+    # keys = ["criterion"]#, , "optimizer_history", "task_state", "extra_state", "last_optimizer_state"] ## "model"
+    # delete = ["args","cfg"]
+    # for i in keys:
+    #     print(pretrained_model[i])
+    #     # if i in pretrained_model:
+    #     #     del pretrained_model[i]
+    # for i in delete:
+    #     if i in pretrained_model:
+    #         del pretrained_model[i]
+    # exit()
 
     return pretrained_model["model"]
