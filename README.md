@@ -1,5 +1,5 @@
 <img src="GraphicalAbstract.png" width=50%> 
-<img src="GraphicalAbstractIR.png" width=50%> 
+<img src="GraphicalAbstract_IR.png" width=50%> 
 
 
 # General
