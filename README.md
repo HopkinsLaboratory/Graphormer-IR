@@ -1,7 +1,6 @@
 <img src="GraphicalAbstract.png" width=50%>  <img src="GraphicalAbstract_IR.png" width=50%> 
-# New Updates (Circa JUNE 2024)
-# Graphormer-IR(IS)
--- Updated to include Graphormer-IRIS code from 
+# New Updates (January 2025) Graphormer-IR(IS)
+-- Updated to include Graphormer-IRIS code from recent publication
 -- Added command line tools for freezing layers, freezing feature encoder, 
 -- Fixed issues with relative paths, pickles
 
