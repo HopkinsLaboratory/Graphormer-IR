@@ -4,7 +4,7 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
 	--ddp-backend=legacy_ddp \
 	--seed 23 \
 	--user-data-dir IRIS \
-	--dataset-name IRIS \
+	--dataset-name IRIS_data \
 	--task graph_prediction \
 	--criterion sid1 \
 	--arch graphormer_base \
