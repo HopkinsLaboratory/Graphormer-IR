@@ -599,12 +599,6 @@ def import_data(file):
             data.append(row)
         return data
 
-
-# x = import_data(r'/home/weeb/Desktop/Cailum/data/test_full.csv')
-
-# data = QM9(label_keys=["mu"])
-# print(data)
-
 class IRSpectraD(DGLDataset):
     def __init__(self):
         self.mode = ":("
@@ -735,8 +729,8 @@ class IRSpectraD(DGLDataset):
         self.labels = []
         self.smiles = []
 
-        path = osp.join(osp.dirname(__file__), '../../../data/IRMPD_jan24.csv')
-        x = import_data(path)
+        x = import_data(r'/../graphormer/data/DFT_spectra.csv')
+
         count = 0
   
         print("Loading Data and Converting SMILES to DGL graphs")
