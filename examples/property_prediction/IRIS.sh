@@ -1,11 +1,10 @@
-export WANDB_NAME='GAS_PHASE no freeze'
 CUDA_VISIBLE_DEVICES=0 fairseq-train \
 	--user-dir ../../graphormer \
 	--num-workers 32 \
 	--ddp-backend=legacy_ddp \
 	--seed 23 \
-	--user-data-dir IRMPD \
-	--dataset-name IRMPD_data \
+	--user-data-dir IRIS \
+	--dataset-name IRIS \
 	--task graph_prediction \
 	--criterion sid1 \
 	--arch graphormer_base \
@@ -24,7 +23,6 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
     --batch-size 32 \
 	--max-epoch 250 \
 	--no-epoch-checkpoints \
-	--wandb-project 'IRMPD_Predictions' \
 	--save-dir '../../checkpoints/' \
-	--pretrained-model-name ../../checkpoints/pretrained_comp/preCOMPONLY/preCOMPONLY.pt\
-	--finetune-from-model ../../checkpoints/pretrained_comp/preCOMPONLY/preCOMPONLY.pt \
+	--pretrained-model-name ../../checkpoints/models/preCOMPONLY.pt\
+	--finetune-from-model ../../checkpoints/models/preCOMPONLY.pt \
