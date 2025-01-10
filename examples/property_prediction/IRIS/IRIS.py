@@ -729,7 +729,7 @@ class IRSpectraD(DGLDataset):
         self.labels = []
         self.smiles = []
 
-        x = import_data(r'/../graphormer/data/DFT_spectra.csv')
+        x = import_data(r'../../graphormer/data/DFT_spectra.csv')
 
         count = 0
   
