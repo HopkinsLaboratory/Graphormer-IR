@@ -22,7 +22,7 @@ from fairseq.modules import (
     LayerNorm,
 )
 import sys
-sys.path.append(r'/home/cmkstien/Graphormer/graphormer/modules')
+sys.path.append(r'../../graphormer/modules')
 from graphormer_layers import GraphNodeFeature
 from fairseq.utils import safe_hasattr
 
