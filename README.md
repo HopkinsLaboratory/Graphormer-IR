@@ -1,9 +1,10 @@
 <img src="GraphicalAbstract_IRIS.png" width=45%>  <img src="GraphicalAbstract_IR.png" width=45%>  
 # New Updates (April 2025) Graphormer-IR(IS)
-- Updated to include Graphormer-IRIS code from recent publication
+- Updated to include Graphormer-IRIS code from recent publication (Merged Graphormer-IR and IRIS branches)
 - Added command line tools for freezing layers, freezing feature encoder, 
 - Fixed issues with relative paths, pickle files not uploaded
-- Added docker installation route
+- Added docker installation route and guide
+- Made it easier to save data by adding '--save-path' flag for evaluation script
 
 # General
 Graphormer-IR(IS) is an extension to the Graphormer package, with [documentation](https://graphormer.readthedocs.io/), and the original code on [Github](https://github.com/microsoft/Graphormer/) with additional usage examples. If you use this code, __please cite our paper and the original Graphormer work__:
@@ -44,7 +45,7 @@ url={https://openreview.net/forum?id=OeWooOxFwDa}
 
 # Installation
 ## Docker [April 2025]
-We have developed a Docker Image to make installation and management of environments easier for Graphormer-RT. Installation Instructions are as follows
+We have developed a Docker Image to make installation and management of environments easier for Graphormer-IR. Installation Instructions are as follows
 
 📦 How to Install and Run Graphormer-IR Using Docker Image
 1.	Install the following software (if not already installed):
@@ -66,9 +67,9 @@ nvidia-container-cli --version
 2.	Save the Dockerfile (the name should be “Dockerfile”).
 3.	Open a terminal in the same folder as Dockerfile.
 4.	Build the Docker image by running:
-		docker build --no-cache -t graphormer-rt .
+		docker build --no-cache -t graphormer-ir .
 5.	Run the Docker container with GPU support:
-docker run -it --gpus all graphormer-rt bash
+docker run -it --gpus all graphormer-ir bash
 6.	Inside the container, navigate to the example directory, make the example script executable, and run the example script:
 ```bash
 cd /workspace/Graphormer-IR/examples/property_prediction
@@ -128,6 +129,5 @@ If you require further assistance with developing your own model or have any que
 
 - cmkstien@uwaterloo.ca
 - liam.hebert@uwaterloo.ca
-- p7thomas@uwaterloo.ca
 - scott.hopkins@uwaterloo.ca. 
 

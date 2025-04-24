@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Etc/UTC
 
 # Set CUDA identifier for PyG wheels; adjust if needed (e.g. to cu121)
-ENV CUDA=cu118
+ENV CUDA=cu121
 
 # Install system packages (including wget, git, build-essential, and ca-certificates)
 RUN apt-get update && apt-get install -y \
@@ -35,10 +35,10 @@ WORKDIR /workspace
 # Cache-busting ARG: update this value manually when you want to re-download the repository
 ARG CACHEBUST=1
 # Remove any existing clone (if present) and clone the latest repository
-RUN rm -rf Graphormer-RT && git clone git@github.com:HopkinsLaboratory/Graphormer-IR.git
+RUN rm -rf Graphormer-IR && git clone git@github.com:HopkinsLaboratory/Graphormer-IR.git
 
 # Install fairseq (switch to the fairseq subdirectory)
-WORKDIR /workspace/Graphormer-RT/fairseq
+WORKDIR /workspace/Graphormer-IR/fairseq
 
 # Downgrade pip so that omegaconf versions used by fairseq are accepted
 RUN pip install --upgrade "pip<24.1"
