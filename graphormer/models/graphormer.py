@@ -196,6 +196,13 @@ class GraphormerModel(FairseqEncoderModel):
             action="store_true",
             help="apply layernorm before self-attention and ffn. Without this, post layernorm will used",
         )
+        parser.add_argument(
+            "--save-path",
+            type=str,
+            help='If you want to save prediction results',
+            default='None'
+
+        )
 
     def max_nodes(self):
         return self.encoder.max_nodes

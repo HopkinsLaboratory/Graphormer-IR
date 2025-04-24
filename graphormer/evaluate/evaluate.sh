@@ -15,4 +15,5 @@ python evaluate.py \
     --batch-size 64 \
     --num-classes 1801 \
     --save-dir '../../checkpoints' \
+    --save-path '../../predictions/' \
     --split train \

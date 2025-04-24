@@ -99,11 +99,10 @@ def spectral_information_similarity(spectrum1,spectrum2,conv_matrix,smiles,frequ
 
     sim=1/(1+np.sum(distance)) ## Calculating SIS
 
-    if save:
-        simL = np.concatenate((norm1, norm2, [smiles, sim]), axis =None) ## If you want detailed data vs just the similarity score
-        return simL
-    else:
-        return sim
+
+    simL = np.concatenate((norm1, norm2, [smiles, sim]), axis =None) ## If you want detailed data vs just the similarity score
+    return simL
+
 
 def eval(args, use_pretrained, checkpoint_path=None, logger=None):
     cfg = convert_namespace_to_omegaconf(args) 
@@ -199,7 +198,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
             dset_size = 1801 ## size of wavenumber vector (400, 4000)
             sim_L = []
             eval_only = False ## If there is no target specra
-            save = True
+
 
             total = len(y_pred)//dset_size
             conv_matrix = make_conv_matrix(std_dev=15) ## in wavenumber, used for smoothing gaussian convolution
@@ -233,17 +232,23 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
 
                     sim_L.append(float(sim[-1]))
                     stack.append(sim)
+            
+            save_path = args.save_path
 
-            if save:
+            if save_path != 'None':
                 wv = np.arange(400, 4000, 2)
                 wv_true = [str(i) + '_true' for i in wv]
                 wv_pred = [str(i) + '_pred' for i in wv]
                 header = wv_true + wv_pred + ['smiles', 'sim']
-                with open('./eval_results.csv', 'w', newline='\n') as csvfile:
+                name = str(checkpoint_path).split('/')[-1].split('.')[0]
+                if not os.path.exists(save_path):
+                    os.makedirs(save_path)
+                with open(os.path.join(save_path, f'{name}_results.csv'), 'w', newline='\n') as csvfile:
                     csvwriter = csv.writer(csvfile, delimiter=',')
                     csvwriter.writerow(header)
                     for row in stack:
                         csvwriter.writerow(row)
+                csvfile.close()
 
             m = np.round(np.mean(sim_L), 5)
             std = np.round(np.std(sim_L), 5)
