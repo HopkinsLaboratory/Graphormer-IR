@@ -265,6 +265,8 @@ class GraphormerEncoder(FairseqEncoder):
         self.embed_out =nn.Linear(
                     latent_size, args.num_classes,bias=True)#+ kernel - 1, )
         w = 10^10
+        self.embed_out.weight.data.normal_(mean=0, std=w)
+        self.embed_out.bias.data.normal_(mean=0, std=w)
 
         self.conv = nn.Conv1d(in_channels=1, out_channels=1, kernel_size=kernel)
         self.lm_output_learned_bias = None
@@ -286,7 +288,6 @@ class GraphormerEncoder(FairseqEncoder):
             batched_data,
             perturb=perturb,
         )
-
 
         x = inner_states[-1].transpose(0, 1)[:,0,:] ## grabs graph token 
 

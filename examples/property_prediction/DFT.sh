@@ -24,6 +24,6 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
     --batch-size 32 \
 	--max-epoch 250 \
 	--no-epoch-checkpoints \
-	--pretrained-model-name ../../checkpoints/pretrained_comp/preCOMPONLY/preCOMPONLY.pt\
-	--finetune-from-model ../../checkpoints/pretrained_comp/preCOMPONLY/preCOMPONLY.pt \
+	--pretrained-model-name ../../pretrained_models/seed1.pt\
+	--finetune-from-model ../../pretrained_models/seed1.pt \
 	--save-dir '../../checkpoints' \

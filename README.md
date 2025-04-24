@@ -115,6 +115,9 @@ This repository contains the code you need to reproduce the work in our recent p
 
 The five best performing Graphormer-IR models (full set of node features, learned node features, combinatoric edges, etc.), discussed in detail in the manuscript are freely available online at [Zenodo](https://zenodo.org/records/10790190). These can be used for model evaluation using the evaluate.sh script and accompanying dataloader. 
 
+**[APRIL 2025 UPDATE]**  
+Graphormer-IRIS models are available at [Zenodo](https://zenodo.org/records/14628870)
+
 # Common Errors
 
 "Segmentation Fault... Core Dumped" may indicate that you have installed the incorrect version of PyTorch Geometric (https://data.pyg.org/whl/). This can be further tested by checking the package import (e.g., from pytorch_geometric.data import data)
