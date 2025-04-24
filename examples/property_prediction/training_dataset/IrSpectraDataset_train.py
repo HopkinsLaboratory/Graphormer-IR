@@ -302,19 +302,6 @@ def create_customized_dataset():
 
     dataset = IRSpectraD()
 
-    print("Dataset has been Registered")
-    ind_path = f'{directory}/indices'
-    ind_path = r'/home/cmkstien/Desktop/IR_data/split_1/graphormer'
-    if os.path.exists(ind_path):
-        rand_valid_idx = pd.read_csv(f'{ind_path}/valid_indices.csv', header=None).to_numpy(dtype=int).flatten()
-        print(rand_valid_idx)
-        print(rand_valid_idx.shape)
-        rand_train_idx = pd.read_csv(f'{ind_path}/train_indices.csv', header=None).to_numpy(dtype=int).flatten()
-        print(rand_train_idx)
-        print(rand_train_idx.shape)
-
-    else:
-        print("Could not find indices")
 
 
 
