@@ -47,7 +47,48 @@ class GraphormerModel(FairseqEncoderModel):
             self.load_state_dict(load_pretrained_model(args.pretrained_model_name))
 
 
+        self.freeze_level = args.freeze_level
 
+        # self.freeze_level = 2 ## -x freezes the first x layer
+
+        c = self.freeze_level
+        i = 0
+        self.freeze_feature_encoder = args.freeze_feature_encoder
+        print(self.freeze_feature_encoder)
+        if self.freeze_feature_encoder:
+            for child in self.encoder.graph_encoder.graph_node_feature.float_encoder.children(): # Freezing the graph feature encoder
+                for param in child.parameters():
+                    param.requires_grad = False
+
+
+        if self.freeze_level == 0: ## Do nothing
+            x = ':)'
+        elif self.freeze_level < 0 : ## Freeze encoder layers
+            for child in self.encoder.graph_encoder.layers.children():
+                for param in child.parameters():
+                    param.requires_grad = False
+                c+=1
+                if c == 0:
+                    break
+        elif self.freeze_level > 0: ## Freeze MLP layers: TODO: Implement for encoder head as well (third MLP layer)
+            for child in self.encoder.layer_list.children():
+                for param in child.parameters():
+                    param.requires_grad = False
+                c-=1
+                if c == 0:
+                    break
+        # c2 = 0
+        # for child in self.encoder.graph_encoder.layers.children():
+        #     for param in child.parameters():
+        #         print('GRAPHORMER LAYER', c2)
+        #         print(param.requires_grad)
+        #     c2+=1
+        # c3 = 0
+        # for child in self.encoder.layer_list.children():
+        #     for param in child.parameters():
+        #             print('MLP LAYER', c3)
+        #             print(param.requires_grad)
+        #     c3+=1
 
         if not args.load_pretrained_model_output_layer:
             self.encoder.reset_output_layer_parameters()
@@ -58,6 +99,13 @@ class GraphormerModel(FairseqEncoderModel):
         # Arguments related to dropout
         parser.add_argument(
             "--dropout", type=float, metavar="D", help="dropout probability"
+        )
+        parser.add_argument(
+            "--freeze-level", type=int, metavar="D", help="LAYERS TO FREEZE. 0 does nothing, negative values freeze encoder layers starting from the front, and positive values freeze the MLP"
+        )
+
+        parser.add_argument(
+            "--freeze-feature-encoder", type=bool, default=False, metavar="D", help="Freeze the feature encoder"
         )
 
         parser.add_argument(
@@ -204,46 +252,25 @@ class GraphormerEncoder(FairseqEncoder):
         self.embed_out = None
         self.lm_output_learned_bias = None
         self.layer_list = torch.nn.ModuleList()
-
         # Remove head is set to true during fine-tuning
         self.load_softmax = not getattr(args, "remove_head", False)
-        latent_size = args.encoder_embed_dim
-
-
+        latent_size = 2100
         w = 10**20
         for i in range(self.layers - 1):
                 ln = nn.Linear(
                 latent_size,latent_size)
-                # nn.init.uniform_(ln.weight, w, w)- testing additional MLP weight initialization
                 self.layer_list.append(ln)
 
-
-        kernel = 40 
-        self.isconv = False ## turn this to true if you want to test a 1D smoothing CNN
-
-        if self.isconv:
-            self.embed_out = nn.Linear(
-                latent_size, args.num_classes+ kernel - 1, bias=True) ## adjusts the output size to match the kernel size in the case where convolution is uses
-
-        else:
-            self.embed_out =nn.Linear(
-                        latent_size, args.num_classes,bias=True)#+ kernel - 1, )
-
+        kernel = 40
+        self.embed_out =nn.Linear(
+                    latent_size, args.num_classes,bias=True)#+ kernel - 1, )
         w = 10^10
 
         self.conv = nn.Conv1d(in_channels=1, out_channels=1, kernel_size=kernel)
         self.lm_output_learned_bias = None
-
-
         if self.load_softmax:
             self.lm_output_learned_bias = nn.Parameter(torch.zeros(1))
 
-            # if not self.share_input_output_embed:
-            #     self.embed_out = nn.Linear(
-            #         args.encoder_embed_dim, args.num_classes, bias=False
-            #     )
-            # else:
-            #     raise NotImplementedError
 
     def reset_output_layer_parameters(self):
         self.lm_output_learned_bias = nn.Parameter(torch.zeros(1))
@@ -253,29 +280,27 @@ class GraphormerEncoder(FairseqEncoder):
 
     def forward(self, batched_data, perturb=None, masked_tokens=None, **unused):
 
+        c2 = 0
+
         inner_states, graph_rep = self.graph_encoder(
             batched_data,
             perturb=perturb,
         )
 
+
         x = inner_states[-1].transpose(0, 1)[:,0,:] ## grabs graph token 
 
         if masked_tokens is not None:
             raise NotImplementedError
-
-
+        
         for i, layer in enumerate(self.layer_list): #
             x = layer(x)
             x = F.relu(x) 
 
         x = self.embed_out(x)
         x = torch.unsqueeze(x, 1)
-        if self.isconv: ## if testing 1D smoothing CNN
-            x = self.conv(x)
-
 
         return x
-
 
     def max_nodes(self):
         """Maximum output length supported by the encoder."""
