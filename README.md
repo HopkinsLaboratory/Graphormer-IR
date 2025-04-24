@@ -1,5 +1,9 @@
-<img src="GraphicalAbstract.png" width=100%> 
-
+<img src="GraphicalAbstract.png" width=40%>  <img src="GraphicalAbstract_IR.png" width=40%> 
+# New Updates (April 2025) Graphormer-IR(IS)
+- Updated to include Graphormer-IRIS code from recent publication
+- Added command line tools for freezing layers, freezing feature encoder, 
+- Fixed issues with relative paths, pickle files not uploaded
+- Added docker installation route
 
 # General
 Graphormer-IR is an extension to the Graphormer package, with [documentation](https://graphormer.readthedocs.io/), and the original code on [Github](https://github.com/microsoft/Graphormer/) with additional usage examples. If you use this code, __please cite our paper and the original Graphormer work__:
