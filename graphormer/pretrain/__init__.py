@@ -11,22 +11,26 @@ PRETRAINED_MODEL_URLS = {
 }
 
 def load_pretrained_model(pretrained_model_name):
-
-    if pretrained_model_name not in PRETRAINED_MODEL_URLS:
-        raise ValueError("Unknown pretrained model name %s", pretrained_model_name)
-    if not dist.is_initialized():
-        return load_state_dict_from_url(PRETRAINED_MODEL_URLS[pretrained_model_name], progress=True)["model"]
-    else:
-        pretrained_model = load_state_dict_from_url(PRETRAINED_MODEL_URLS[pretrained_model_name], progress=True, file_name=f"{pretrained_model_name}_{dist.get_rank()}")["model"]
-        dist.barrier()
-    keys = ["criterion"]#, , "optimizer_history", "task_state", "extra_state", "last_optimizer_state"] ## "model"
-    delete = ["args","cfg"]
-    for i in keys:
-        print(pretrained_model[i])
-        # if i in pretrained_model:
-        #     del pretrained_model[i]
-    for i in delete:
-        if i in pretrained_model:
-            del pretrained_model[i]
+    pretrained_model = load(pretrained_model_name)
+    # pretrained_model = load('/home/cmkstien/Graphormer_RT_extra/best_MODEL_ext/seeds/external_out_final_cbest/' + pretrained_model_name)
+    print(pretrained_model['model'].keys())
+    print(pretrained_model['model']['encoder.graph_encoder.graph_node_feature.float_encoder.0.0.weight'])
+    # if pretrained_model_name not in PRETRAINED_MODEL_URLS:
+    #     raise ValueError("Unknown pretrained model name %s", pretrained_model_name)
+    # if not dist.is_initialized():
+    #     return load_state_dict_from_url(PRETRAINED_MODEL_URLS[pretrained_model_name], progress=True)["model"]
+    # else:
+    #     pretrained_model = load_state_dict_from_url(PRETRAINED_MODEL_URLS[pretrained_model_name], progress=True, file_name=f"{pretrained_model_name}_{dist.get_rank()}")["model"]
+    #     dist.barrier()
+    # keys = ["criterion"]#, , "optimizer_history", "task_state", "extra_state", "last_optimizer_state"] ## "model"
+    # delete = ["args","cfg"]
+    # for i in keys:
+    #     print(pretrained_model[i])
+    #     # if i in pretrained_model:
+    #     #     del pretrained_model[i]
+    # for i in delete:
+    #     if i in pretrained_model:
+    #         del pretrained_model[i]
+    # exit()
 
     return pretrained_model["model"]
