@@ -6,8 +6,20 @@
 - Added docker installation route
 
 # General
-Graphormer-IR is an extension to the Graphormer package, with [documentation](https://graphormer.readthedocs.io/), and the original code on [Github](https://github.com/microsoft/Graphormer/) with additional usage examples. If you use this code, __please cite our paper and the original Graphormer work__:
+Graphormer-IR(IS) is an extension to the Graphormer package, with [documentation](https://graphormer.readthedocs.io/), and the original code on [Github](https://github.com/microsoft/Graphormer/) with additional usage examples. If you use this code, __please cite our paper and the original Graphormer work__:
 
+@article{Stienstra2025,
+   abstract = {Machine learning models for predicting IR spectra of molecular ions (infrared ion spectroscopy, IRIS) have yet to be reported owing to the relatively sparse experimental data sets available. To ove...},
+   author = {Cailum M. K. Stienstra and Teun van Wieringen and Liam Hebert and Patrick Thomas and Kas J. Houthuijs and Giel Berden and Jos Oomens and Jonathan Martens and W. Scott Hopkins},
+   doi = {10.1021/ACS.JCIM.4C02329},
+   issn = {1549-9596},
+   journal = {Journal of Chemical Information and Modeling},
+   month = {2},
+   publisher = {American Chemical Society},
+   title = {A Machine-Learned “Chemical Intuition” to Overcome Spectroscopic Data Scarcity},
+   url = {https://pubs.acs.org/doi/full/10.1021/acs.jcim.4c02329},
+   year = {2025}
+}
 
 @article{Stienstra2024,
    author = {Cailum M. K. Stienstra and Liam Hebert and Patrick Thomas and Alexander Haack and Jason Guo and W. Scott Hopkins},
