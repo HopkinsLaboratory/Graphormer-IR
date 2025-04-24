@@ -102,15 +102,15 @@ Large collections of infrared spectra are owned by private organizations across 
 Since we are unable to provide this data, we instead provide sample data in /scripts/sample_data/ and indices that interface with our code and to provide an approximate template for evaluation. 
 
 # Usage
-This repository contains the code you need to reproduce the work in our recent publication (https://doi.org/10.1021/acs.jcim.4c00378). Most of our usage is identical to that found in the original Graphormer paper. But to briefly summarize the novelties and changes in this work
+This repository contains the code you need to reproduce the work in our recent publications. Most of our usage is identical to that found in the original Graphormer paper.
 
-- Training models can be accomplished using the /examples/property_prediction/IR_spec.sh script. Here you can tune most model parameters.
-- Training data is loaded from  /examples/property_prediction/training_dataset/IrSpectraDataset_train.py. Here you can modify node features, edge features, where we perform combinatoric edge mapping, and we manually add on the global graph node to describe solvent phase. We use modified versions of the DGLLifeScience featurization functions (found in featurizing_helpers.py)
+- We have included dataloaders for IR, IRIS, and DFT spectra found in examples/property prediciton with bash scripts to run training. Here you can tune model hyperparameters, finetune pre-trainined models (while freezing layers), and change your data source
 - Our learned graph node feature encoder is found in /graphormer/modules/graphormer_layers.py. If you change the number/shape of input node features you will have to edit this code as well
-- The model itself is in /graphormer/models/graphormer.py. Most hyperparameters can be tuned from the bash script"
-- Once you have a trained model, evaluation occurs at /graphormer/evaluate/evaluate.sh. Make sure your model hyperparameteres match those from the model that you trained on. 
-- Evaluation functions are found at /graphormer/evaluate/evaluate.py - you can extract your predicted spectra, SMILES codes, and SIS scores from this script if you want to export the data
-- The scripts that we used for spectral preprocessing are available in /scripts/, performing molecular filtering, phase consolidation, baseline aliasing, interpolation, phase exclusion, etc. 
+- The model itself is in /graphormer/models/graphormer.py. Most hyperparameters can be tuned from the bash scripts
+- Once you have a trained model, evaluation occurs at /graphormer/evaluate/evaluate.sh. Make sure your model hyperparameteres match those used in training.
+- Evaluation functions are found at /graphormer/evaluate/evaluate.py - you can extract your predicted spectra, SMILES codes, and SIS scores. Data can be saved by modifying the save_path flag in teh bash script
+- Additional data manipulation scripts (baseline correction, etc.) can be found in /scripts/
+- Sample data for training IR and DFT models are found in /sample_data/. IRIS spectra were not released in this study because of conflicts with other publications. The model weights trained on this data are available at Zenodo (see below)
 
 # Models
 
