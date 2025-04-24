@@ -6,7 +6,7 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
 	--user-data-dir training_dataset \
 	--dataset-name customized_IRSpectraDataset \
 	--task graph_prediction \
-	--criterion sid \
+	--criterion sid1 \
 	--arch graphormer_base \
 	--num-classes 1801 \
 	--attention-dropout 0.10 --act-dropout 0.10 --dropout 0.10 \

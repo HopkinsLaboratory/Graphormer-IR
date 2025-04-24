@@ -108,7 +108,7 @@ class IRSpectraD(DGLDataset):
                     for x3 in hybridization_onehot:
                         for x4 in is_aromatic_onehot:
                             for x5 in total_num_H_onehot: 
-                                for x6 in explicit_valence_oesnehot:
+                                for x6 in explicit_valence_onehot:
                                     for x7 in total_bonds_onehot:
                                         key = torch.cat([torch.Tensor(y) for y in [x1, x2, x3, x4, x5, x6, x7]])
                                         self.one_hotatom_to_int_keys += [key]
@@ -170,7 +170,7 @@ class IRSpectraD(DGLDataset):
             count +=1
 
         self.num_classes = 1801
-        super().__init__(name='IR Spectra', save_dir='/home/cmkstien/Graphormer/examples/property_prediction/training_dataset/') 
+        super().__init__(name='IR Spectra') 
 
     def process(self):
         
@@ -179,8 +179,8 @@ class IRSpectraD(DGLDataset):
         self.smiles = []
 
         print("I'm in the right file")
-        x = import_data(r'/home/cmkstien/Desktop/IR_data/sample_IR_train_data.csv')
-        x = x[1:] ## removing header
+        x = import_data(r'../../sample_data/sample_IR_train_data.csv')[1:]
+
         
         print("Loading Data and Converting SMILES to DGL graphs")
         count_outliers = 0

@@ -27,10 +27,57 @@ url={https://openreview.net/forum?id=OeWooOxFwDa}
 }
 
 # Installation
-We highly recommend following the [installation guide](https://graphormer.readthedocs.io/), though we will suggest a few additional notes to make things easier
+## Docker [April 2025]
+We have developed a Docker Image to make installation and management of environments easier for Graphormer-RT. Installation Instructions are as follows
+
+📦 How to Install and Run Graphormer-IR Using Docker Image
+1.	Install the following software (if not already installed):
+- Docker: https://docs.docker.com/get-docker/
+- NVIDIA GPU drivers: https://www.nvidia.com/Download/index.aspx
+- NVIDIA Container Toolkit: https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html
+
+You can verify installation via the following commands: 
+```bash
+docker --version
+```
+```bash
+nvidia-smi
+```
+```bash
+nvidia-container-cli --version
+```
+
+2.	Save the Dockerfile (the name should be “Dockerfile”).
+3.	Open a terminal in the same folder as Dockerfile.
+4.	Build the Docker image by running:
+		docker build --no-cache -t graphormer-rt .
+5.	Run the Docker container with GPU support:
+docker run -it --gpus all graphormer-rt bash
+6.	Inside the container, navigate to the example directory, make the example script executable, and run the example script:
+```bash
+cd /workspace/Graphormer-IR/examples/property_prediction
+chmod +x IRspec.sh  
+./IRspec.sh  
+```
+7.	If it runs for an epoch and saves .pt files, you know you’ve succeeded. 
+
+A beginner's guide to Docker usage can be found [HERE](https://docker-curriculum.com/)
+
+- To Upload files (e.g., new data) to the docker container, use:
+```bash
+docker cp ./local_file.txt container_id:/app/local_file.txt
+```
+- To Download files (checkpoints, results) from this container, use:
+```bash
+docker cp <container_id>:<path_inside_container> <path_on_host> 
+```
+## Old Instructions [Before April 2025]
+We highly recommend following the [installation guide](https://graphormer.readthedocs.io/), though we will suggest a few additional notes to make things easier:
 - Install fairseq directly from the [Github repository](https://github.com/facebookresearch/fairseq), "pip install -e /path/to/folder" Make sure that you're using an old enough version that's compatible with Graphormer
 - Make sure that you're using an old enough version of PyTorch Geometric and the DGL libraries (there's a lookup table for compatibility on their website). These are the things that we found broke the most frequently, and the errors you get don't always tell you that it's these packages. If there are problems inheriting abstract data classes, just modify the class methods to include whatever class methods (e.g., "\_\_len\_\_"), in your install and it should work.
-- Refer to "Requirements_Graphormer.txt" if you have any problems with version compatability.
+- Refer to "requirement.txt" if you have any problems with version compatability.
+- Ensure that your CUDA and pytorch geometric versions are compatabile. 
+
 
 # Data
 Large collections of infrared spectra are owned by private organizations across a variety of domains, and no unified “machine learning ready” data set is available. As such, it was necessary to obtain, clean, and process a library of IR spectra from several different domains. IR spectra were obtained from three online sources: the National Institute of [Advanced Industrial Science and Technology (AIST)](https://sdbs.db.aist.go.jp/), the [National Institute of Standards and Technology (NIST)](https://webbook.nist.gov/chemistry/), and the [Coblentz Society](https://www.coblentz.org/). Complete data access statements can be found in our original publication in the Supporting Information for the Graphormer-IR manuscript.

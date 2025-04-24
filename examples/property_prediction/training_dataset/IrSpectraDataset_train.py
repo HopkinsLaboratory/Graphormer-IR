@@ -180,7 +180,7 @@ class IRSpectraD(DGLDataset):
         self.smiles = []
 
         print("I'm in the right file")
-        x = import_data(r'./IR_sample_data.csv')
+        x = import_data(r'../../sample_data/sample_IR_train_data.csv')
         x = x[1:] ## removing header
         
         print("Loading Data and Converting SMILES to DGL graphs")
@@ -296,19 +296,17 @@ class IRSpectraD(DGLDataset):
 @register_dataset("customized_IRSpectraDataset")
 def create_customized_dataset():
 
-    directory = '/home/weeb/Desktop/data'
-    fin = 'data' # no .csv  # CHANGE THIS
-    data_path = f'{directory}/training_dataset.csv'
 
     dataset = IRSpectraD()
 
-
+    train_indices = np.arange(0, len(dataset) * 0.9, dtype=int)
+    valid_indices = np.arange(len(dataset) * 0.9, len(dataset), dtype=int)
 
 
     return {
         "dataset": dataset,
-        "train_idx": np.arange(0,15),#rand_train_idx,# 
-        "valid_idx": np.arange(15,20),#rand_valid_idx,#
+        "train_idx": train_indices,
+        "valid_idx": valid_indices,
         "test_idx": None,
         "source": "dgl" 
     }

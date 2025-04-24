@@ -5,7 +5,7 @@ python evaluate.py \
 	--user-data-dir testing_dataset \
 	--dataset-name IR_test \
     --task graph_prediction \
-	--criterion sid \
+	--criterion sid1 \
 	--arch graphormer_base \
     --encoder-layers 4 \
     --encoder-embed-dim  2100 \
@@ -14,5 +14,5 @@ python evaluate.py \
     --mlp-layers 3 \
     --batch-size 64 \
     --num-classes 1801 \
-    --save-dir '../../model' \
+    --save-dir '../../checkpoints' \
     --split train \
