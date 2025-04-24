@@ -101,7 +101,7 @@ class GraphormerModel(FairseqEncoderModel):
             "--dropout", type=float, metavar="D", help="dropout probability"
         )
         parser.add_argument(
-            "--freeze-level", type=int, metavar="D", help="LAYERS TO FREEZE. 0 does nothing, negative values freeze encoder layers starting from the front, and positive values freeze the MLP"
+            "--freeze-level", type=int, metavar="D", help="LAYERS TO FREEZE. 0 does nothing, negative values freeze encoder layers starting from the front, and positive values freeze the MLP", default=0
         )
 
         parser.add_argument(
