@@ -896,7 +896,7 @@ class IRSpectraD(DGLDataset):
 @register_dataset("DFT")
 def create_customized_dataset():
 
-    directory = '/home/weeb/Desktop/data'
+
     dataset = IRSpectraD()
     num_graphs = len(dataset)
 

@@ -1,0 +1,28 @@
+CUDA_VISIBLE_DEVICES=0 fairseq-train \
+	--user-dir ../../graphormer \
+	--num-workers 32 \
+	--ddp-backend=legacy_ddp \
+	--seed 23 \
+	--user-data-dir IRIS \
+	--dataset-name IRIS_data \
+	--task graph_prediction \
+	--criterion sid1 \
+	--arch graphormer_base \
+	--num-classes 1801 \
+	--attention-dropout 0.10 --act-dropout 0.10 --dropout 0.10 \
+	--optimizer adam --adam-betas '(0.9, 0.999)' --adam-eps 1e-8 --clip-norm 5.0 --weight-decay 0.01 \
+	--lr-scheduler polynomial_decay --power 1 --warmup-updates 293 --total-num-update 1950 \
+	--lr 7e-5 \
+	--fp16 \
+    --encoder-layers 4 \
+    --encoder-embed-dim  2100 \
+    --encoder-ffn-embed-dim 2100 \
+	--freeze-level 0 \
+    --encoder-attention-heads 210 \
+    --mlp-layers 3 \
+    --batch-size 32 \
+	--max-epoch 250 \
+	--no-epoch-checkpoints \
+	--save-dir '../../checkpoints/' \
+	--pretrained-model-name ../../checkpoints/models/preCOMPONLY.pt\
+	--finetune-from-model ../../checkpoints/models/preCOMPONLY.pt \

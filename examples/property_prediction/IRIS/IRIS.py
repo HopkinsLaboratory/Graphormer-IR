@@ -854,7 +854,7 @@ class IRSpectraD(DGLDataset):
     def __len__(self):
         return len(self.graphs)
 
-@register_dataset("IRMPD_data")
+@register_dataset("IIS_data")
 def create_customized_dataset():
 
     dataset = IRSpectraD()
