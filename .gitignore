@@ -71,3 +71,6 @@ venv.bak/
 
 # Graphormer-specific
 graphormer/evaluate/eval_results.csv
+*.pyc
+*.c
+*.so
