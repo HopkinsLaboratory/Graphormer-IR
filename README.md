@@ -1,16 +1,15 @@
 <img src="GraphicalAbstract_IRIS.png" width=45%>  <img src="GraphicalAbstract_IR.png" width=45%>  
 # New Updates (April 2025) Graphormer-IR(IS)
-- Updated to include Graphormer-IRIS code from recent publication (Merged Graphormer-IR and IRIS branches)
-- Added command line tools for freezing layers, freezing feature encoder, 
-- Fixed issues with relative paths, pickle files not uploaded
-- Added docker installation route and guide
-- Made it easier to save data by adding '--save-path' flag for evaluation script
+- Updated to include Graphormer-IRIS code from recent publication (Merged Graphormer-IR and IRIS branches);
+- Added command line tools for freezing encoder layers, MLP layers, and the graph feature encoder;
+- Fixed issues with relative paths, pickle files not uploaded;
+- Added docker installation route and guide;
+- Made it easier to save data by adding '--save-path' flag for evaluation script.
 
 # General
 Graphormer-IR(IS) is an extension to the Graphormer package, with [documentation](https://graphormer.readthedocs.io/), and the original code on [Github](https://github.com/microsoft/Graphormer/) with additional usage examples. If you use this code, __please cite our paper and the original Graphormer work__:
 
 @article{Stienstra2025,
-   abstract = {Machine learning models for predicting IR spectra of molecular ions (infrared ion spectroscopy, IRIS) have yet to be reported owing to the relatively sparse experimental data sets available. To ove...},
    author = {Cailum M. K. Stienstra and Teun van Wieringen and Liam Hebert and Patrick Thomas and Kas J. Houthuijs and Giel Berden and Jos Oomens and Jonathan Martens and W. Scott Hopkins},
    doi = {10.1021/ACS.JCIM.4C02329},
    issn = {1549-9596},
@@ -35,7 +34,7 @@ Graphormer-IR(IS) is an extension to the Graphormer package, with [documentation
 }
 
 @inproceedings{
-ying2021do,
+ying2021,
 title={Do Transformers Really Perform Badly for Graph Representation?},
 author={Chengxuan Ying and Tianle Cai and Shengjie Luo and Shuxin Zheng and Guolin Ke and Di He and Yanming Shen and Tie-Yan Liu},
 booktitle={Thirty-Fifth Conference on Neural Information Processing Systems},
@@ -67,9 +66,13 @@ nvidia-container-cli --version
 2.	Save the Dockerfile (the name should be “Dockerfile”).
 3.	Open a terminal in the same folder as Dockerfile.
 4.	Build the Docker image by running:
-		docker build --no-cache -t graphormer-ir .
+```bash
+docker build --no-cache -t graphormer-ir .
+```
 5.	Run the Docker container with GPU support:
+```bash
 docker run -it --gpus all graphormer-ir bash
+```
 6.	Inside the container, navigate to the example directory, make the example script executable, and run the example script:
 ```bash
 cd /workspace/Graphormer-IR/examples/property_prediction
@@ -95,7 +98,6 @@ We highly recommend following the [installation guide](https://graphormer.readth
 - Refer to "requirement.txt" if you have any problems with version compatability.
 - Ensure that your CUDA and pytorch geometric versions are compatabile. 
 
-
 # Data
 Large collections of infrared spectra are owned by private organizations across a variety of domains, and no unified “machine learning ready” data set is available. As such, it was necessary to obtain, clean, and process a library of IR spectra from several different domains. IR spectra were obtained from three online sources: the National Institute of [Advanced Industrial Science and Technology (AIST)](https://sdbs.db.aist.go.jp/), the [National Institute of Standards and Technology (NIST)](https://webbook.nist.gov/chemistry/), and the [Coblentz Society](https://www.coblentz.org/). Complete data access statements can be found in our original publication in the Supporting Information for the Graphormer-IR manuscript.
 
@@ -105,7 +107,7 @@ Since we are unable to provide this data, we instead provide sample data in /scr
 This repository contains the code you need to reproduce the work in our recent publications. Most of our usage is identical to that found in the original Graphormer paper.
 
 - We have included dataloaders for IR, IRIS, and DFT spectra found in examples/property prediciton with bash scripts to run training. Here you can tune model hyperparameters, finetune pre-trainined models (while freezing layers), and change your data source
-- Our learned graph node feature encoder is found in /graphormer/modules/graphormer_layers.py. If you change the number/shape of input node features you will have to edit this code as well
+- Our learned graph node feature encoder is found in /graphormer/modules/graphormer_layers.py. If you change the number/shape of input node features you will have to edit this code as well. 
 - The model itself is in /graphormer/models/graphormer.py. Most hyperparameters can be tuned from the bash scripts
 - Once you have a trained model, evaluation occurs at /graphormer/evaluate/evaluate.sh. Make sure your model hyperparameteres match those used in training.
 - Evaluation functions are found at /graphormer/evaluate/evaluate.py - you can extract your predicted spectra, SMILES codes, and SIS scores. Data can be saved by modifying the save_path flag in teh bash script
