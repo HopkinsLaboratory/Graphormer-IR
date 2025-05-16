@@ -104,15 +104,51 @@ Large collections of infrared spectra are owned by private organizations across 
 Since we are unable to provide this data, we instead provide sample data in /scripts/sample_data/ and indices that interface with our code and to provide an approximate template for evaluation. 
 
 # Usage
+
 This repository contains the code you need to reproduce the work in our recent publications. Most of our usage is identical to that found in the original Graphormer paper.
 
 - We have included dataloaders for IR, IRIS, and DFT spectra found in examples/property prediciton with bash scripts to run training. Here you can tune model hyperparameters, finetune pre-trainined models (while freezing layers), and change your data source
 - Our learned graph node feature encoder is found in /graphormer/modules/graphormer_layers.py. If you change the number/shape of input node features you will have to edit this code as well. 
 - The model itself is in /graphormer/models/graphormer.py. Most hyperparameters can be tuned from the bash scripts
 - Once you have a trained model, evaluation occurs at /graphormer/evaluate/evaluate.sh. Make sure your model hyperparameteres match those used in training.
-- Evaluation functions are found at /graphormer/evaluate/evaluate.py - you can extract your predicted spectra, SMILES codes, and SIS scores. Data can be saved by modifying the save_path flag in teh bash script
+
 - Additional data manipulation scripts (baseline correction, etc.) can be found in /scripts/
 - Sample data for training IR and DFT models are found in /sample_data/. IRIS spectra were not released in this study because of conflicts with other publications. The model weights trained on this data are available at Zenodo (see below)
+
+## Model Evaluation [May 2025]
+
+Model evaluation can be completed using the evaluate.sh script (found in ../../graphormer/evaluate/), which calls the evaluate.py function. Open the script, and identify what dataloader the script is calling using these flags
+```bash
+      --user-data-dir testing_dataset \
+      --dataset-name IR_test \
+```
+Which refer to the testing_dataset subdir containing a dataloader that is registered as 'testing_dataset' (see line 293 of /graphormer/evaluate/testing_dataset/IR_test.py). You can change these if needed if you want to modify your dataloader, organize files, etc.
+
+2. Make sure your model weights (the pre-trainined .pt model file) are in the correct directory. This is set by the flag:
+
+```bash
+
+        --save-dir '../../checkpoints' \
+```
+
+You can put multiple models into this folder, and it will make predictions for multiple pre-trainined instances. This might be good to do for robustness of predictions because of training/testing biases. You can download these model weights on our zenodo (see below). IR and IRIS predictions require different weights.  
+
+3. Modify the dataloader to load the smiles/phase combinations you want. This can be done in  line 182  of /graphormer/evaluate/testing_dataset/IR_test.py: 
+```bash
+ x = import_data(r'../../sample_data/sample_IR_train_data.csv')[1:]). 
+```
+Make sure you match the .csv structure/order as the sample data provided: 
+
+4. Set your file save location with the evaluate.sh flag:
+```bash
+ ' --save-path '../../predictions/ir_preds.csv' \
+```
+If this is not a .csv file path, it will not save any data. This will spit out your measured and predicted spectrum associated with the predictions in your dataloader.
+
+5. Run the bash script in your virtual environment! The model should save predictions in a .csv file named according to the .pt file used. Taking the average of multiple pre-trained model weights can help account for variations in training biases.
+
+You should be able to make predictions for any combinations of SMILES and spectral phase/charge state. Keep in mind that predictions will only be as good as the chemical coverage of the pre-training libraries. (see papers)
+
 
 # Models
 
